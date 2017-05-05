@@ -3,7 +3,6 @@ library("rvest")
 library(data.table)
 library(stringr)
 x = 2014
-z = "test"
 for (i in 2014:2022){
   url <- sprintf("http://www.shrpsports.com/nhl/stand/%sfinalcnf.htm", x)
   population <- url %>%
