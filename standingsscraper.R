@@ -1,4 +1,4 @@
-#install.packages("rvest")
+install.packages("rvest")
 library("rvest")
 library(data.table)
 library(stringr)
