@@ -22,4 +22,3 @@ setnames(standings, old= c('X1','X2','X3','X4','X5','X6','X7','X8','X9','X10','X
 standings$wins= as.numeric(str_split_fixed(standings$Record,"-",3)[,1])
 standings$losses= as.numeric(str_split_fixed(standings$Record,"-",3)[,2])
 standings$overtime= as.numeric(str_split_fixed(standings$Record,"-",3)[,3])
-#idiot
