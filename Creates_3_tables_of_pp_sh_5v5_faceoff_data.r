@@ -1,28 +1,24 @@
-
 #install.packages("rvest")
 library("rvest")
 library(data.table)
 library(stringr)
 library(dplyr)
-x = 2013
 z=1
-situations = c('sh','pp','5v5','sh','pp','5v5','sh','pp','5v5','sh','pp','5v5')
-for (i in 1:4){
-  for(i in 1:3){
+situations = c('sh','pp','5v5')
+for (i in situations){
+  x = 2013
+  for(i in 1:4){
     url <- sprintf("http://puckbase.com/stats/team-faceoffs?situation=%s&sort=faceoff_pct&year=%s",situations[z] ,x)
     population <- url %>%
     read_html() %>%
     html_nodes(xpath='/html/body/div/div[3]/div[2]/table') %>%
     html_table(fill=TRUE)
     population[[1]]$year= x+1
-    # setnames(population[[1]], old= c("FO%","Games","FO per game","FW per game", "FW", "FO"),
-                        # sprintf(new =c("FO%","Games","FO per game",
-                        # "FW per game", "FW", "FO"),situations[z]))
-    
+    population[[1]][1] = NULL
     assign(paste0("X",situations[z], x+1), population[[1]])
-    z=z+1
+    x=x+1
   }
-      x=x+1
+  z=z+1    
 }
 
 setnames(X5v52014, old= c("FO%","Games","FO per game","FW per game", "FW", "FO"),
