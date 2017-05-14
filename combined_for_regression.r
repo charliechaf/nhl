@@ -55,7 +55,7 @@ shorthanded = rbind(Xsh2014,Xsh2015,Xsh2016,Xsh2017)
 powerplay = rbind(Xpp2014,Xpp2015,Xpp2016,Xpp2017)
 fivevfive = rbind(X5v52014,X5v52015,X5v52016,X5v52017)
 
-##making a team lookup table- put into data frame called
+##making a team lookup table- put into data frame called: team
 unique.fivevfive.Team. = c("St. Louis Blues",	"Boston Bruins",	"Carolina Hurricanes",	"Detroit Red Wings",
                            "Anaheim Ducks",	"Dallas Stars",	"Chicago Blackhawks",	"San Jose Sharks",	"Arizona Coyotes",
                            "Montreal Canadiens",	"Washington Capitals",	"Los Angeles Kings",	"Philadelphia Flyers",
