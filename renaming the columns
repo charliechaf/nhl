@@ -1,0 +1,66 @@
+library("rvest")
+library(data.table)
+library(stringr)
+library(dplyr)
+#install.packages("dtplyr")
+library(dtplyr)
+
+z=1
+situations = c('5v5home','5v5road', '5v5close_home', '5v5close_road','5v5tied_home', '5v5tied_away')
+#seasons= c('201617','201516','201415','201314','201213')
+for (i in situations){
+  x = 2013
+  y=14
+  for(i in 1:4){
+    url <- sprintf("http://stats.hockeyanalysis.com/teamstats.php?db=%s%s&sit=%s&disp=1&sortdir=DESC&sort=GFPCT",x,y, situations[z])
+    population <- url %>%
+      read_html() %>%
+      html_nodes(xpath='/html/body/table') %>%
+      html_table(fill=TRUE)
+    population[[1]]$year= x+1
+    population[[1]][1] = NULL
+    a=situations[z]
+    assign(paste0(situations[z], x+1), population[[1]])
+     #setnames(population[[1]], old= c("FO%","Games","FO per game","FW per game", "FW", "FO"),
+      #         new =c(paste(a,"FO%"),paste(a,"Games"),paste(a,"FO per game"),
+       #               paste(a,"FW per game"), paste(a,"FW"), paste(a,"FO")))
+    
+   setnames(population[[1]], old =c( "TOI","GF","GA","GF60","GA60","GF%","SF","SA","SF60","SA60","SF%","FF","FA",   
+    "FF60","FA60","FF%" ,"CF","CA","CF60","CA60","CF%","Sh%","Sv%","PDO","OZFO%","DZFO%","NZFO%","year"),
+   
+    new =c(paste(a,"TOI"),
+           paste(a,"GF"),
+           paste(a,"GA"),
+           paste(a,"GF60"),
+           paste(a,"GA60"),
+           paste(a,"GF%"),
+           paste(a,"SF"),
+           paste(a,"SA"),
+          paste(a,"SF60"),
+          paste(a,"SA60"),
+          paste(a,"SF%"),
+          paste(a,"FF"),
+          paste(a,"FA"),
+          paste(a,"FF60"),
+          paste(a,"FA60"),
+          paste(a,"FF%"),
+          paste(a,"CF"),
+          paste(a,"CA"),
+          paste(a,"CF60"),
+          paste(a,"CA60"),
+          paste(a,"CF%"),
+          paste(a,"Sh%"),
+          paste(a,"Sv%"),
+          paste(a,"PDO"),
+          paste(a,"OZFO%"),
+          paste(a,"DZFO%"),
+          paste(a,"NZFO%"),
+          paste(a,"year")
+    ))
+    
+    x=x+1
+    y=y+1
+  }
+  z=z+1    
+}
+
