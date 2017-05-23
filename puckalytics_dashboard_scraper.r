@@ -36,4 +36,4 @@ for (i in situations){
   }
   z=z+1
 }
-beep(sound=8)
+beep(sound=4)
