@@ -29,4 +29,3 @@ for (i in situations){
   }
   z=z+1    
 }
-

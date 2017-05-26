@@ -154,6 +154,17 @@ lin_reg_model= lm(formula = Pts ~ .-`5v5 FO per game`- `5v5 FW per game`-`sh FW 
                   data=combined)
 summary(lin_reg_model)
 
+lin_reg_model= lm(formula = Pts ~ .-`5v5 FO per game`- `5v5 FW per game`-`sh FW per game`-`pp FO per game`- `sh FO`- `pp FO`- `pp FW`- `pp FW per game`-`pp FO%`,
+                  data=combined)
+summary(lin_reg_model)
+
+lin_reg_model= lm(formula = Pts ~ .-`5v5 FO per game`- `5v5 FW per game`-`sh FW per game`-`pp FO per game`- `sh FO`- `pp FO`- `pp FW`- `pp FW per game`-`pp FO%`-`5v5 FO`,
+                  data=combined)
+summary(lin_reg_model)
+
+lin_reg_model= lm(formula = Pts ~ .-`5v5 FO per game`- `5v5 FW per game`-`sh FW per game`-`pp FO per game`- `sh FO`- `pp FO`- `pp FW`- `pp FW per game`-`pp FO%`-`5v5 FO`-`5v5 FW`,
+                  data=combined)
+summary(lin_reg_model)
 
 
 
