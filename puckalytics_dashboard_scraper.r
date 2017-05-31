@@ -37,3 +37,6 @@ for (i in situations){
   z=z+1
 }
 beep(sound=4)
+
+setwd("G:/Hoffmann/R")
+write.csv(db, file= "nhl.csv")
