@@ -133,16 +133,17 @@ for (i in situations){
   z=z+1
 }
 
+##making puckalytics wide
 library(tidyr)
 pucka_wide= db %>% 
   gather("var", "val", -Team, -year, -situation) %>% 
   unite(key, situation, var) %>% 
-  spread(key, val)
+  spread(key, val, convert=TRUE)
 # db$TOI_mins = as.numeric(str_split_fixed(db$TOI, pattern = ":", 2)[,1]) + as.numeric(str_split_fixed(db$TOI, pattern = ":", 2)[,2])/60
 # db$situation = as.factor(db$situation)
-str(combined)
-str(db)
 str(pucka_wide)
 combined= left_join(combined, pucka_wide, by=c("puck_team"= "Team", "year"="year"))
-
+rm(pucka_wide, db)
+str(combined)
 beep(sound=3)
+
