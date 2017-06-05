@@ -84,7 +84,9 @@ unique_lookup = c("St Louis",	"Boston",	"Carolina",	"Detroit",	"Anaheim",
                   "Ottawa",	"Winnipeg",	"Nashville",	"Pittsburgh",	"Edmonton",	"Florida",
                   "Calgary",	"Vancouver",	"New Jersey",	"NY Rangers",	"Buffalo")
 
+
 team = data_frame(unique.fivevfive.Team,city,Team,unique_lookup)
+team$puck_team = if_else(condition = team$unique_lookup=="St Louis", "St. Louis", team$unique_lookup)
 
 ##removing unnecessary table and joining tables into a final table called: combined
 rm(Season2014,Season2015,Season2016,Season2017,X5v52014,X5v52015,
@@ -94,9 +96,10 @@ combined = left_join(combined,fo_fivevfive, by=c("unique.fivevfive.Team" = "Team
 combined = left_join(combined,fo_powerplay, by=c("unique.fivevfive.Team" = "Team", "year" = "year"))
 combined = left_join(combined,fo_shorthanded, by=c("unique.fivevfive.Team" = "Team", "year" = "year"))
 
-rm(fo_fivevfive, fo_powerplay, fo_shorthanded, standings, team)
+rm(fo_fivevfive, fo_powerplay, fo_shorthanded, standings)
 
 ##stats.hockeyanalysis.com scraper
+
 
 z=1
 situations = c('5v5','5v5home','5v5road','5v5close_home', '5v5close_road', '5v5close','5v5tied','5v5tied_home','5v5tied_road',
@@ -130,8 +133,16 @@ for (i in situations){
   z=z+1
 }
 
-db$TOI_mins = as.numeric(str_split_fixed(db$TOI, pattern = ":", 2)[,1]) + as.numeric(str_split_fixed(db$TOI, pattern = ":", 2)[,2])/60
+library(tidyr)
+pucka_wide= db %>% 
+  gather("var", "val", -Team, -year, -situation) %>% 
+  unite(key, situation, var) %>% 
+  spread(key, val)
+# db$TOI_mins = as.numeric(str_split_fixed(db$TOI, pattern = ":", 2)[,1]) + as.numeric(str_split_fixed(db$TOI, pattern = ":", 2)[,2])/60
 # db$situation = as.factor(db$situation)
-summary(db)
+str(combined)
+str(db)
+str(pucka_wide)
+combined= left_join(combined, pucka_wide, by=c("puck_team"= "Team", "year"="year"))
 
-beep(sound=4)
+beep(sound=3)
